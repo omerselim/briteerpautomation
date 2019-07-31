@@ -38,16 +38,16 @@ public class DeleteOpportunityTest extends TestBase {
     int i = 0;
 
     @Test(priority = 1)
-    public void PreConditionCreateOpportunity() {
+    public void PreConditionCreateOpportunity1() {
         System.out.println("==============================\nPrecondition Creating Opportunities\n------------------------------");
         BriteErpUtilsOST.navigateToModule("CRM");
         SeleniumUtils.waitPlease(2);
-        BriteErpUtilsOST.captureScreenShot("PreConditionCreateOpportunity"+(++i));
-        OpportunityPage.createOpportunity("Bbbb","200.00");
-        OpportunityPage.createOpportunity("Cccc","300.00");
-        OpportunityPage.createOpportunity("Dddd","400.00");
+        BriteErpUtilsOST.captureScreenShot("PreConditionCreateOpportunity1"+(++i));
+        OpportunityPage.createOpportunity(4,4,4);
+        OpportunityPage.createOpportunity(3,5,4);
+        OpportunityPage.createOpportunity(5,6,3);
         SeleniumUtils.waitPlease(2);
-        BriteErpUtilsOST.captureScreenShot("PreConditionCreateOpportunity"+(++i));
+        BriteErpUtilsOST.captureScreenShot("PreConditionCreateOpportunity1"+(++i));
     }
 
 

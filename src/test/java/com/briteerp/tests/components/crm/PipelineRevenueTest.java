@@ -1,5 +1,6 @@
 package com.briteerp.tests.components.crm;
 
+import com.briteerp.pages.CRM.OpportunityPage;
 import com.briteerp.pages.CRM.PipelineRevenuePage;
 import com.briteerp.utilities.BriteErpUtilsOST;
 import com.briteerp.utilities.SeleniumUtils;
@@ -7,6 +8,7 @@ import com.briteerp.utilities.TestBase;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import java.io.IOException;
+import java.text.DecimalFormat;
 
 
 public class PipelineRevenueTest extends TestBase {
@@ -18,7 +20,20 @@ Acceptance Criteria:
     as the Expected revenue column value on the list board.
 */
 
-    @Test
+    @Test(priority = 1)
+    public void PreConditionCreateOpportunity2() {
+        System.out.println("==============================\nPrecondition Creating Opportunities\n------------------------------");
+        BriteErpUtilsOST.navigateToModule("CRM");
+        SeleniumUtils.waitPlease(2);
+        BriteErpUtilsOST.captureScreenShot("PreConditionCreateOpportunity2"+(++n));
+        OpportunityPage.createOpportunity(4,4,4);
+        OpportunityPage.createOpportunity(3,5,4);
+        OpportunityPage.createOpportunity(5,6,3);
+        SeleniumUtils.waitPlease(2);
+        BriteErpUtilsOST.captureScreenShot("PreConditionCreateOpportunity2"+(++n));
+    }
+
+    @Test(priority=2)
     public void verifyRevenues() {
         System.out.println("==============================\nProseding verifyRevenues Test\n------------------------------");
         BriteErpUtilsOST.navigateToModule("CRM");
@@ -39,7 +54,7 @@ Acceptance Criteria:
 2.  Verify that on the pivot table, the total expected revenue should be the sum of all opportunities’
     expected revenue.
 */
-    @Test
+    @Test(priority=3)
     public void verifySumOfRevenues() throws IOException {
         System.out.println("==============================\nProseding verifySumOfRevenues Test\n------------------------------");
         BriteErpUtilsOST.navigateToModule("CRM");
@@ -49,11 +64,12 @@ Acceptance Criteria:
         crmPipelineRev.opportunityElement.click();
         SeleniumUtils.waitPlease(2);
         BriteErpUtilsOST.captureScreenShot("ScreenShoot"+(++n));
+        DecimalFormat df = new DecimalFormat(".00");
         double CountedSumOfRevenue = (BriteErpUtilsOST.getSumOfColumn(crmPipelineRev.column2Element))/3;
         double SumOfRevenue = BriteErpUtilsOST.convertToDouble(crmPipelineRev.pivotTotalElement.getText());
-        System.out.println("Sum of expected revenues from List :"+CountedSumOfRevenue);
-        System.out.println("Total expected revenue :"+SumOfRevenue);
-        Assert.assertEquals(CountedSumOfRevenue,SumOfRevenue);
+        System.out.println("Sum of expected revenues from List \t:"+df.format(CountedSumOfRevenue));
+        System.out.println("Total expected revenue \t\t\t\t:"+SumOfRevenue);
+        Assert.assertEquals(df.format(CountedSumOfRevenue),df.format(SumOfRevenue));
 
     }
 

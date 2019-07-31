@@ -1,6 +1,5 @@
 package com.briteerp.pages.CRM;
 
-import com.briteerp.utilities.BriteErpUtilsOST;
 import com.briteerp.utilities.ConfigurationReader;
 import com.briteerp.utilities.Driver;
 import com.briteerp.utilities.SeleniumUtils;
@@ -8,8 +7,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import java.time.Duration;
+import java.util.Random;
 
 public class OpportunityPage {
     private WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(Long.valueOf(ConfigurationReader.getProperty("explicitwait"))));
@@ -86,7 +85,11 @@ public class OpportunityPage {
         PageFactory.initElements(Driver.getDriver(), this);
     }
 
-    public static void createOpportunity(String Title, String Revenue ) {
+    public static void createOpportunity(int NumOfFnameCharcters, int NumOfLnameCharcters, int numberOfDigit ) {
+        String firstName = OpportunityPage.randomName(NumOfFnameCharcters);
+        String lastName = OpportunityPage.randomLastName(NumOfLnameCharcters);
+        String Title = firstName+" "+lastName;
+        String Revenue = OpportunityPage.randomRevenue(numberOfDigit);
         OpportunityPage opportunity = new OpportunityPage();
         SeleniumUtils.waitPlease(1);
         opportunity.CreateElement.click();
@@ -103,10 +106,54 @@ public class OpportunityPage {
         SeleniumUtils.waitPlease(1);
         opportunity.CreateFinalElement.click();
 
-
     }
 
+    public static String randomName(int NumOfFnameCharcters) {
+        Random rand = new Random();
+        String choices2 = "abcdefghijklmnopqrstuvwxyz" ;
+        String choices1 = choices2.toUpperCase();
+        int i = 0;
+        String name = choices1.charAt( rand.nextInt( choices1.length()))+ "";
+        while ( i<NumOfFnameCharcters ) {
 
+            name = name + choices2.charAt( rand.nextInt( choices2.length() ) );
+            i= i + 1;
+        }
+        return name;
+    }
+
+    public static String randomLastName(int NumOfLnameCharcters) {
+        Random rand = new Random();
+        String choices2 = "abcdefghijklmnopqrstuvwxyz" ;
+        String choices1 = choices2.toUpperCase();
+        int i = 0;
+        String name = choices1.charAt( rand.nextInt( choices1.length()))+ "";
+        while ( i<NumOfLnameCharcters -1) {
+
+            name = name + choices2.charAt( rand.nextInt( choices2.length() ) );
+            i= i + 1;
+        }
+        return name;
+    }
+    // numberes before point  x x x . __  whole number  parts
+    public static String randomRevenue(int numberOfDigit) {
+        Random rand = new Random();
+        String choices1 = "123456789" ;
+        String choices2= "1234567890" ;
+
+        String number1 = choices1.charAt( rand.nextInt( choices1.length()))+ "";
+        for (int i=0;  i<numberOfDigit-1; i++) {
+            number1 = number1 + choices2.charAt( rand.nextInt( choices2.length() ) );
+        }
+
+// decimal parts
+        String number2="";
+        for (int i=0; i<2; i++ ) {
+            number2 = number2+ choices2.charAt( rand.nextInt( choices2.length() ) );
+        }
+        String number = number1+"."+number2;
+        return number;
+    }
 
 
 

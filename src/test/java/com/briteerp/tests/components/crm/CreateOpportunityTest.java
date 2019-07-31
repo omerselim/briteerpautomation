@@ -36,19 +36,7 @@ public class CreateOpportunityTest extends TestBase {
         BriteErpUtilsOST.navigateToModule("CRM");
         SeleniumUtils.waitPlease(2);
         BriteErpUtilsOST.captureScreenShot("createOpportunity1"+(++i));
-        opportunity.CreateElement.click();
-        SeleniumUtils.waitPlease(1);
-        opportunity.OpportunityTitle.sendKeys("Aaaa");
-        SeleniumUtils.waitPlease(1);
-        opportunity.CustomerElement.click();
-        opportunity.CustomerChoiceElement.click();
-        opportunity.ExpectedRevenueElement.click();
-        opportunity.ExpectedRevenueElement.clear();
-        opportunity.ExpectedRevenueElement.sendKeys("100.45");
-        SeleniumUtils.waitPlease(1);
-        opportunity.TwoStarElement.click();
-        SeleniumUtils.waitPlease(1);
-        opportunity.CreateFinalElement.click();
+        OpportunityPage.createOpportunity(4,5,3);
         SeleniumUtils.waitPlease(1);
         BriteErpUtilsOST.captureScreenShot("createOpportunity1"+(++i));
 
