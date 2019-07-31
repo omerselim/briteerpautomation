@@ -1,4 +1,4 @@
-package com.briteerp.tests.pages.CRM;
+package com.briteerp.pages.CRM;
 
 import com.briteerp.utilities.ConfigurationReader;
 import com.briteerp.utilities.Driver;
@@ -9,8 +9,6 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
-import java.util.ArrayList;
-import java.util.List;
 
 public class crmPipelineRevPage {
 

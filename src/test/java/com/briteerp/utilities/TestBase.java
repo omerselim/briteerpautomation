@@ -1,6 +1,6 @@
 package com.briteerp.utilities;
 
-import com.briteerp.tests.pages.login.loginPage;
+import com.briteerp.pages.login.loginPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.AfterClass;

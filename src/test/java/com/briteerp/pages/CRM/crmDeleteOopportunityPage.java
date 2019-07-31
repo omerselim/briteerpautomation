@@ -1,13 +1,6 @@
-package com.briteerp.tests.pages.CRM;
+package com.briteerp.pages.CRM;
 
-import com.briteerp.utilities.Driver;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.Select;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class crmDeleteOopportunityPage {
 
@@ -19,11 +12,11 @@ public class crmDeleteOopportunityPage {
 
     String usernameLocator ="login";
     String passwordLocator ="password";
-    String loginLocator = "//button[@type='submit']";
-    String CRMTabLocator = "//*[@id=\"oe_main_menu_navbar\"]/div[2]/ul[1]/li[5]";
-    String ListButtonLocator ="//button[@class='btn btn-icon fa fa-lg fa-list-ul o_cp_switch_list']";
+    String loginLocator = "button[type='submit']";
+    String CRMTabLocator = "//*[id=\"oe_main_menu_navbar\"]/div[2]/ul[1]/li[5]";
+    String ListButtonLocator ="button[class='btn btn-icon fa fa-lg fa-list-ul o_cp_switch_list']";
     String pipelineLocator="/html/body/div[1]/div[2]/div[1]/ol/li";
-    String beforeDeleteLocator = "//span[@class='o_pager_limit']";
+    String beforeDeleteLocator = "span[class='o_pager_limit']";
     String vendorBottonLocator="//tr[1]//td[1]";
     String ActionButtonLocator="//button[contains(text(),'Action')]";
     String DeleteButtonLocator="//a[contains(text(),'Delete')]";

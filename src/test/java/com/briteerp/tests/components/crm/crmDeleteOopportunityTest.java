@@ -23,11 +23,8 @@
     Should be able to Log out and the log in page should be visible.
 
  */
-
 package com.briteerp.tests.components.crm;
-
-import com.briteerp.tests.pages.CRM.crmDeleteOopportunityPage;
-
+import com.briteerp.pages.CRM.crmDeleteOopportunityPage;
 import com.briteerp.utilities.BriteErpUtilsOST;
 import com.briteerp.utilities.TestBase;
 import org.openqa.selenium.By;

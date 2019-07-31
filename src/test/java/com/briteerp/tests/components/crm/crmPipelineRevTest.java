@@ -1,17 +1,13 @@
 package com.briteerp.tests.components.crm;
 
-import com.briteerp.tests.pages.CRM.crmPipelineRevPage;
-import com.briteerp.tests.pages.login.loginPage;
+import com.briteerp.pages.CRM.crmPipelineRevPage;
 import com.briteerp.utilities.BriteErpUtilsOST;
 import com.briteerp.utilities.SeleniumUtils;
 import com.briteerp.utilities.TestBase;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
 import java.io.IOException;
-import java.util.List;
+
 
 public class crmPipelineRevTest extends TestBase {
     crmPipelineRevPage crmPipelineRev = new crmPipelineRevPage();
@@ -49,7 +45,8 @@ Acceptance Criteria:
         crmPipelineRev.totalRowElement.click();
         crmPipelineRev.opportunityElement.click();
         SeleniumUtils.waitPlease(2);
-        BriteErpUtilsOST.takesScreenshoot();
+        int n = 0;
+        BriteErpUtilsOST.captureScreenShot("ScreenShoot"+(++n));
         double CountedSumOfRevenue = (BriteErpUtilsOST.getSumOfColumn(crmPipelineRev.column2Element))/3;
         double SumOfRevenue = BriteErpUtilsOST.convertToDouble(crmPipelineRev.pivotTotalElement.getText());
         System.out.println("Sum of expected revenues from List :"+CountedSumOfRevenue);

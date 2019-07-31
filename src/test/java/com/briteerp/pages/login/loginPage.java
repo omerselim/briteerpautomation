@@ -1,4 +1,4 @@
-package com.briteerp.tests.pages.login;
+package com.briteerp.pages.login;
 
 import com.briteerp.utilities.ConfigurationReader;
 import com.briteerp.utilities.Driver;

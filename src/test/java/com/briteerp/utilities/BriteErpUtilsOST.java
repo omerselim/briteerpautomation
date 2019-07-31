@@ -1,11 +1,9 @@
 package com.briteerp.utilities;
 
-import com.briteerp.tests.pages.login.loginPage;
+import com.briteerp.pages.login.loginPage;
 import org.apache.commons.io.FileUtils;
-import org.openqa.selenium.By;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -129,14 +127,26 @@ public class BriteErpUtilsOST {
         double d =Integer.parseInt(s);
         return d/100;
     }
-    public static void takesScreenshoot() throws IOException {
-        TakesScreenshot ts=(TakesScreenshot) Driver.getDriver();
-        File source=ts.getScreenshotAs(OutputType.FILE);
-        String dest="C:\\Users\\ostur\\IdeaProjects\\briteerpautomation\\screenshoots\\";
-        File destination=new File(dest);
-        FileUtils.copyFile(source, destination);
-        System.out.println("screenshot is taken...");
+    public static void captureScreenShot(String screenshotname){
+        try{
+            TakesScreenshot scrShoot=(TakesScreenshot)Driver.getDriver();
+            File source=scrShoot.getScreenshotAs(OutputType.FILE);
+            String dest="C:\\Users\\ostur\\IdeaProjects\\briteerpautomation\\screenshoots\\"+screenshotname+".jpg";
+            File destination=new File(dest);
+            FileUtils.copyFile(source, destination);
+//          FileUtils.copyFile(source, new File("C:\\Users\\ostur\\IdeaProjects\\briteerpautomation\\screenshoots\\"+screenshotname+".jpg"));    //short Way
+        }catch(Exception e){
+            System.out.println("while taking the screenshot happened the exception"+e.getMessage());
+        }
     }
+
+//          TakesScreenshot ts=(TakesScreenshot) driver;
+//          File source=ts.getScreenshotAs(OutputType.FILE);
+//          String dest="/Users/emraypala/IdeaProjects/TestSeleniumAutomation/src/test/java/ScreenShotLibrariy/HeadlessBrowser1.png";
+//          File destination=new File(dest);
+//          FileUtils.copyFile(source,destination);
+//          System.out.println("screenshot is taken...");
+//          driver.quit();
 
 
 //????????????????????????????????????????????????????????????????????????????????????????????
