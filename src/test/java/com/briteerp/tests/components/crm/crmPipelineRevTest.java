@@ -11,6 +11,7 @@ import java.io.IOException;
 
 public class crmPipelineRevTest extends TestBase {
     crmPipelineRevPage crmPipelineRev = new crmPipelineRevPage();
+    int n = 0;
 /*
 Acceptance Criteria:
 1.  Verify that second opportunity’ Expected Revenue value on the Pivot board should be the same
@@ -23,9 +24,11 @@ Acceptance Criteria:
         BriteErpUtilsOST.navigateToModule("CRM");
         crmPipelineRev.pivotElement.click();
         SeleniumUtils.waitPlease(2);
+        BriteErpUtilsOST.captureScreenShot("ScreenShoot"+(++n));
         String PivotExpectedRevenue = crmPipelineRev.PivotExpectedRevenueElement.getText();
         crmPipelineRev.listElement.click();
         String ListExpectedRevenue = crmPipelineRev.ListExpectedRevenueElement.getText();
+        BriteErpUtilsOST.captureScreenShot("ScreenShoot"+(++n));
         System.out.println("Expected revenue from Pivot :"+PivotExpectedRevenue);
         System.out.println("Expected revenue from List :"+ListExpectedRevenue);
         Assert.assertTrue(PivotExpectedRevenue.equals(ListExpectedRevenue));
@@ -45,7 +48,6 @@ Acceptance Criteria:
         crmPipelineRev.totalRowElement.click();
         crmPipelineRev.opportunityElement.click();
         SeleniumUtils.waitPlease(2);
-        int n = 0;
         BriteErpUtilsOST.captureScreenShot("ScreenShoot"+(++n));
         double CountedSumOfRevenue = (BriteErpUtilsOST.getSumOfColumn(crmPipelineRev.column2Element))/3;
         double SumOfRevenue = BriteErpUtilsOST.convertToDouble(crmPipelineRev.pivotTotalElement.getText());
