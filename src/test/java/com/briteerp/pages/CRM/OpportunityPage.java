@@ -1,7 +1,9 @@
 package com.briteerp.pages.CRM;
 
+import com.briteerp.utilities.BriteErpUtilsOST;
 import com.briteerp.utilities.ConfigurationReader;
 import com.briteerp.utilities.Driver;
+import com.briteerp.utilities.SeleniumUtils;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -39,6 +41,9 @@ public class OpportunityPage {
 
     @FindBy(xpath="//tr[1]//td[1]")
     public WebElement vendorBottonLocator;
+
+    @FindBy(css="tr:nth-of-type(1)>td:nth-of-type(1)>div:nth-of-type(1)>input:nth-of-type(1)")
+    public WebElement checkBoxLocator;
 
     @FindBy(xpath="//button[contains(text(),'Action')]")
     public WebElement ActionButtonLocator;
@@ -80,6 +85,29 @@ public class OpportunityPage {
     public OpportunityPage(){
         PageFactory.initElements(Driver.getDriver(), this);
     }
+
+    public static void createOpportunity(String Title, String Revenue ) {
+        OpportunityPage opportunity = new OpportunityPage();
+        SeleniumUtils.waitPlease(1);
+        opportunity.CreateElement.click();
+        SeleniumUtils.waitPlease(1);
+        opportunity.OpportunityTitle.sendKeys(Title);
+        SeleniumUtils.waitPlease(1);
+        opportunity.CustomerElement.click();
+        opportunity.CustomerChoiceElement.click();
+        opportunity.ExpectedRevenueElement.click();
+        opportunity.ExpectedRevenueElement.clear();
+        opportunity.ExpectedRevenueElement.sendKeys(Revenue);
+        SeleniumUtils.waitPlease(1);
+        opportunity.TwoStarElement.click();
+        SeleniumUtils.waitPlease(1);
+        opportunity.CreateFinalElement.click();
+
+
+    }
+
+
+
 
 
 //    //    let's write a method that would return collection of repeat options

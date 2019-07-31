@@ -1,5 +1,6 @@
 package com.briteerp.tests.components.crm;
 
+import com.briteerp.pages.login.loginPage;
 import com.briteerp.utilities.SeleniumUtils;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
@@ -44,18 +45,7 @@ public class crmDraft {
     }
     @Test
     public void UserCredential() {
-        //************ 1 *********
-        //Login to  BriteERP as User
-        //find the name input section and put valid user name
-        driver.findElement(By.id(usernameLocator)).sendKeys("eventscrmmanager28@info.com");
-        //find the password input section and put  valid password
-        driver.findElement(By.id(passwordLocator)).sendKeys("eventscrmmanager");
-        SeleniumUtils.waitPlease(3);
-        // Click enter login button
-        driver.findElement(By.xpath(loginLocator)).click();
-        SeleniumUtils.waitPlease(3);
-        // ******** 2 **********
-        //Verify  Login page and current url username same
+        loginPage.login();
         String expectedTitle = "#Inbox - Odoo";
         String actualTitle = driver.getTitle();
         Assert.assertEquals(actualTitle, expectedTitle);
@@ -111,9 +101,4 @@ public class crmDraft {
 
     }
 
-    @AfterMethod
-    public void tearDown(){
-        SeleniumUtils.waitPlease(3);
-        driver.quit();
-    }
 }

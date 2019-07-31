@@ -28,6 +28,7 @@ import com.briteerp.pages.CRM.OpportunityPage;
 import com.briteerp.utilities.BriteErpUtilsOST;
 import com.briteerp.utilities.SeleniumUtils;
 import com.briteerp.utilities.TestBase;
+import net.bytebuddy.build.Plugin;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -36,11 +37,21 @@ public class DeleteOpportunityTest extends TestBase {
     OpportunityPage opportunity = new OpportunityPage();
     int i = 0;
 
+    @Test(priority = 1)
+    public void PreConditionCreateOpportunity() {
+        System.out.println("==============================\nPrecondition Creating Opportunities\n------------------------------");
+        BriteErpUtilsOST.navigateToModule("CRM");
+        SeleniumUtils.waitPlease(2);
+        BriteErpUtilsOST.captureScreenShot("PreConditionCreateOpportunity"+(++i));
+        OpportunityPage.createOpportunity("Bbbb","200.00");
+        OpportunityPage.createOpportunity("Cccc","300.00");
+        OpportunityPage.createOpportunity("Dddd","400.00");
+        SeleniumUtils.waitPlease(2);
+        BriteErpUtilsOST.captureScreenShot("PreConditionCreateOpportunity"+(++i));
+    }
 
 
-
-
-    @Test
+   @Test(priority = 2)
     public void deleteOpportunity1() {
         System.out.println("==============================\nProceeding deleteOpportunity1 Test\n------------------------------");
         BriteErpUtilsOST.navigateToModule("CRM");
@@ -55,7 +66,7 @@ public class DeleteOpportunityTest extends TestBase {
         BriteErpUtilsOST.captureScreenShot("deleteOpportunity1"+(++i));
     }
 
-    @Test
+    @Test(priority = 3)
     public void deleteOpportunity2() {
         System.out.println("==============================\nProceeding deleteOpportunity2 Test\n------------------------------");
         BriteErpUtilsOST.navigateToModule("CRM");
@@ -79,10 +90,30 @@ public class DeleteOpportunityTest extends TestBase {
 
     }
 
+    @Test(priority = 4)
+    public void deleteOpportunity3() {
+        System.out.println("==============================\nProceeding deleteOpportunity3 Test\n------------------------------");
+        BriteErpUtilsOST.navigateToModule("CRM");
+        SeleniumUtils.waitPlease(2);
+        opportunity.listElement.click();
+        SeleniumUtils.waitPlease(1);
+        String OptNumberBeforeDelete = opportunity.optNumberBeforeDelete.getText();
+        int OnBd = Integer.parseInt(OptNumberBeforeDelete);
+        BriteErpUtilsOST.captureScreenShot("deleteOpportunity3"+(++i));
+        opportunity.checkBoxLocator.click();
+        opportunity.ActionButtonLocator.click();
+        SeleniumUtils.waitPlease(1);
+        opportunity.DeleteButton2Locator.click();
+        opportunity.okButton1Locator.click();
+        SeleniumUtils.waitPlease(1);
+        String OptNumberAfterDelete = opportunity.optNumberAfterDelete.getText();
+        int OnAd = Integer.parseInt(OptNumberAfterDelete);
+        BriteErpUtilsOST.captureScreenShot("deleteOpportunity3"+(++i));
+        System.out.println("Opportunity Number Before Delete :"+OptNumberBeforeDelete);
+        System.out.println("Opportunity Number After Delete :"+OptNumberAfterDelete);
+        Assert.assertEquals((OnAd+1),OnBd);
 
 
-
-
-
+    }
 
 }
