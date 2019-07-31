@@ -10,7 +10,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class crmPipelineRevPage {
+public class PipelineRevenuePage {
 
     private WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(Long.valueOf(ConfigurationReader.getProperty("explicitwait"))));
 
@@ -40,11 +40,8 @@ public class crmPipelineRevPage {
 
     public By column2Element = By.cssSelector("tbody>tr>td:nth-of-type(2)");
 
-//    @FindBy(xpath= "//a[contains(text(),'Opportunity')]")
-//    public WebElement opportunityElement;
 
-
-    public crmPipelineRevPage(){
+    public PipelineRevenuePage(){
         PageFactory.initElements(Driver.getDriver(), this);
     }
 

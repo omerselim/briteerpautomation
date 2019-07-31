@@ -1,6 +1,6 @@
 package com.briteerp.tests.components.crm;
 
-import com.briteerp.pages.CRM.crmPipelineRevPage;
+import com.briteerp.pages.CRM.PipelineRevenuePage;
 import com.briteerp.utilities.BriteErpUtilsOST;
 import com.briteerp.utilities.SeleniumUtils;
 import com.briteerp.utilities.TestBase;
@@ -9,8 +9,8 @@ import org.testng.annotations.Test;
 import java.io.IOException;
 
 
-public class crmPipelineRevTest extends TestBase {
-    crmPipelineRevPage crmPipelineRev = new crmPipelineRevPage();
+public class PipelineRevenueTest extends TestBase {
+    PipelineRevenuePage crmPipelineRev = new PipelineRevenuePage();
     int n = 0;
 /*
 Acceptance Criteria:
