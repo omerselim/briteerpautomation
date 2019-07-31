@@ -5,41 +5,57 @@ import com.briteerp.tests.pages.login.loginPage;
 import com.briteerp.utilities.BriteErpUtilsOST;
 import com.briteerp.utilities.SeleniumUtils;
 import com.briteerp.utilities.TestBase;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.io.IOException;
 import java.util.List;
 
 public class crmPipelineRevTest extends TestBase {
     crmPipelineRevPage crmPipelineRev = new crmPipelineRevPage();
-
+/*
+Acceptance Criteria:
+1.  Verify that second opportunity’ Expected Revenue value on the Pivot board should be the same
+    as the Expected revenue column value on the list board.
+*/
 
     @Test
     public void verifyRevenues() {
+        System.out.println("==============================\nProseding verifyRevenues Test\n------------------------------");
         BriteErpUtilsOST.navigateToModule("CRM");
         crmPipelineRev.pivotElement.click();
         SeleniumUtils.waitPlease(2);
         String PivotExpectedRevenue = crmPipelineRev.PivotExpectedRevenueElement.getText();
         crmPipelineRev.listElement.click();
         String ListExpectedRevenue = crmPipelineRev.ListExpectedRevenueElement.getText();
+        System.out.println("Expected revenue from Pivot :"+PivotExpectedRevenue);
+        System.out.println("Expected revenue from List :"+ListExpectedRevenue);
         Assert.assertTrue(PivotExpectedRevenue.equals(ListExpectedRevenue));
         Assert.assertEquals(PivotExpectedRevenue,ListExpectedRevenue);
     }
-
+/*
+Acceptance Criteria:
+2.  Verify that on the pivot table, the total expected revenue should be the sum of all opportunities’
+    expected revenue.
+*/
     @Test
-    public void verifySumOfRevenues() {
-
+    public void verifySumOfRevenues() throws IOException {
+        System.out.println("==============================\nProseding verifySumOfRevenues Test\n------------------------------");
         BriteErpUtilsOST.navigateToModule("CRM");
         crmPipelineRev.pivotElement.click();
         SeleniumUtils.waitPlease(2);
         crmPipelineRev.totalRowElement.click();
         crmPipelineRev.opportunityElement.click();
-//        List<WebElement> revenues = crmPipelineRev.revenueListElement.;
+        SeleniumUtils.waitPlease(2);
+        BriteErpUtilsOST.takesScreenshoot();
+        double CountedSumOfRevenue = (BriteErpUtilsOST.getSumOfColumn(crmPipelineRev.column2Element))/3;
+        double SumOfRevenue = BriteErpUtilsOST.convertToDouble(crmPipelineRev.pivotTotalElement.getText());
+        System.out.println("Sum of expected revenues from List :"+CountedSumOfRevenue);
+        System.out.println("Total expected revenue :"+SumOfRevenue);
+        Assert.assertEquals(CountedSumOfRevenue,SumOfRevenue);
 
-//        Assert.assertTrue(PivotExpectedRevenue.equals(ListExpectedRevenue));
-//        Assert.assertEquals(PivotExpectedRevenue,ListExpectedRevenue);
-//        loginPage.logout();
     }
 
 

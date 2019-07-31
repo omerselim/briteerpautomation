@@ -2,12 +2,15 @@ package com.briteerp.tests.pages.CRM;
 
 import com.briteerp.utilities.ConfigurationReader;
 import com.briteerp.utilities.Driver;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.List;
 
 public class crmPipelineRevPage {
 
@@ -31,8 +34,13 @@ public class crmPipelineRevPage {
     @FindBy(xpath= "//a[contains(text(),'Opportunity')]")
     public WebElement opportunityElement;
 
-    @FindBy(xpath= "//td[2]")
+    @FindBy(css= "td:nth-of-type(2)")
     public WebElement revenueListElement;
+
+    @FindBy(css= "tr:nth-of-type(1)>td:nth-of-type(2)")
+    public WebElement pivotTotalElement;
+
+    public By column2Element = By.cssSelector("tbody>tr>td:nth-of-type(2)");
 
 //    @FindBy(xpath= "//a[contains(text(),'Opportunity')]")
 //    public WebElement opportunityElement;

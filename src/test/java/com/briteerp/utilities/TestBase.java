@@ -23,20 +23,18 @@ public class TestBase {
         driver.manage().window().maximize();
         driver.get(ConfigurationReader.getProperty("url"));
     }
-
     @BeforeMethod
     public void login(){
+        System.out.println("==============================\nProseding login to page\n------------------------------");
         loginPage.login();
         SeleniumUtils.waitPlease(2);
     }
-
     @AfterMethod
     public void logout(){
+        System.out.println("==============================\nProseding logout from page\n------------------------------");
         loginPage.logout();
         SeleniumUtils.waitPlease(2);
     }
-
-
     @AfterClass
     public void teardown(){
         Driver.closeDriver();
