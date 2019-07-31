@@ -3,9 +3,7 @@ package com.briteerp.utilities;
 import com.briteerp.pages.login.loginPage;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
-
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -150,7 +148,7 @@ public class BriteErpUtilsOST {
         try{
             TakesScreenshot scrShoot=(TakesScreenshot)Driver.getDriver();
             File source=scrShoot.getScreenshotAs(OutputType.FILE);
-            String dest="C:\\Users\\ostur\\IdeaProjects\\briteerpautomation\\screenshoots\\"+screenshotname+".jpg";
+            String dest="C:\\Users\\ostur\\IdeaProjects\\briteerpautomation\\screenshots\\"+screenshotname+".jpg";
             File destination=new File(dest);
             FileUtils.copyFile(source, destination);
         }catch(Exception e){
