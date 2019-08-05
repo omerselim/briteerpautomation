@@ -9,8 +9,15 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class loginPage {
+
+    public loginPage(){
+        PageFactory.initElements(Driver.getDriver(), this);
+    }
 
     private WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(Long.valueOf(ConfigurationReader.getProperty("explicitwait"))));
 
@@ -26,29 +33,22 @@ public class loginPage {
     @FindBy(className = "custom-checkbox__icon")
     public WebElement rememberMeElement;
 
+    @FindBy(xpath = "//title[contains(text(),'#Inbox - Odoo')]")
+    public WebElement titleElement;
+
     @FindBy(className = "oe_topbar_name")
     public WebElement ManagerLocator;
 
     @FindBy(css = "a[data-menu='logout']")
     public WebElement logOutLocator;
 
-    public loginPage(){
-        PageFactory.initElements(Driver.getDriver(), this);
-    }
+    public List<String> userNames = new ArrayList<String>(Arrays.asList("eventscrmmanager28@info.com",
+            "eventscrmmanager29@info.com","eventscrmmanager30@info.com","eventscrmmanager31@info.com",
+            "eventscrmmanager32@info.com","eventscrmmanager33@info.com","eventscrmmanager34@info.com"));
 
-    public static void login(){
-        loginPage login = new loginPage();
-        String username = ConfigurationReader.getProperty("username");
-        String password = ConfigurationReader.getProperty("password");
-        login.userNameElement.sendKeys(username);
-        login.passwordElement.sendKeys(password);
-        login.loginButtonElement.click();
-    }
+    public String password = "eventscrmmanager";
 
-    public static void logout() {
-        loginPage logout = new loginPage();
-        logout.ManagerLocator.click();
-        logout.logOutLocator.click();
-        SeleniumUtils.waitPlease(2);
-    }
+
+
+
 }

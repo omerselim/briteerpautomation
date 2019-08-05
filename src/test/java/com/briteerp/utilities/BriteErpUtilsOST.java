@@ -4,7 +4,12 @@ import com.briteerp.pages.login.loginPage;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
 import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class BriteErpUtilsOST {
@@ -29,11 +34,18 @@ public class BriteErpUtilsOST {
         login.loginButtonElement.click();
     }
 
+    public static void login(String username, String password){
+        loginPage login = new loginPage();
+        login.userNameElement.sendKeys(username);
+        login.passwordElement.sendKeys(password);
+        login.loginButtonElement.click();
+    }
+
     public static void logout() {
         loginPage logout=new loginPage();
         logout.ManagerLocator.click();
         logout.logOutLocator.click();
-        SeleniumUtils.waitPlease(2);
+ //       SeleniumUtils.waitPlease(1);
     }
 
 //====================================================================================================
@@ -144,17 +156,58 @@ public class BriteErpUtilsOST {
 //====================================================================================================
 //   Screen Shoots
 //----------------------------------------------------------------------------------------------------
-    public static void captureScreenShot(String screenshotname){
+    public static void captureScreenShot(String ssName){
         try{
+            String date= new SimpleDateFormat("yyyyMMddhhmmss").format(new Date());
             TakesScreenshot scrShoot=(TakesScreenshot)Driver.getDriver();
             File source=scrShoot.getScreenshotAs(OutputType.FILE);
-            String dest="C:\\Users\\ostur\\IdeaProjects\\briteerpautomation\\screenshots\\"+screenshotname+".jpg";
+//          String dest="C:\\Users\\ostur\\IdeaProjects\\briteerpautomation\\test-output\\Screenshots\\"+ssName+date+".png";
+            String dest = System.getProperty("user.dir") + "/test-output/Screenshots/" + ssName+date + ".png";
+
             File destination=new File(dest);
             FileUtils.copyFile(source, destination);
         }catch(Exception e){
             System.out.println("while taking the screenshot happened the exception"+e.getMessage());
         }
     }
+//
+//    public static String getScreenshot1(String ssName){
+//        String time= new SimpleDateFormat("yyyyMMddhhmmss").format(new Date());
+//        TakesScreenshot takesScreenshot=(TakesScreenshot) Driver.getDriver();
+//        File source= takesScreenshot.getScreenshotAs(OutputType.FILE);
+//        String target=System.getProperty("user.dir")+"/test-output/Screenshots"+ssName+time+".png";
+//        File finalDestination=new File(target);
+//
+//        try{
+//            FileUtils.copyFile(source,finalDestination);
+//
+//        }catch (IOException io){
+//
+//
+//
+//        }
+//        return target;
+//    }
+//    public static String getScreenshot2(String name)  {
+//        // name the screenshot with the current date time to avoid duplicate name
+//        String date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_hh:mm:ss a"));
+//        // TakesScreenshot ---> interface from selenium which takes screenshots
+//        TakesScreenshot ts = (TakesScreenshot) Driver.getDriver();
+//        File source = ts.getScreenshotAs(OutputType.FILE);
+//        // full path to the screenshot location
+//        String target = System.getProperty("user.dir") + "/test-output/Screenshots/" + name + date + ".png";
+//
+//        File finalDestination = new File(target);
+//
+//        // save the screenshot to the path given
+//        try {
+//            FileUtils.copyFile(source, finalDestination);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        return target;
+//    }
+
 
 //====================================================================================================
 //   loaderMaskLocator  / need adaptation and modification for BriteERP

@@ -1,0 +1,191 @@
+Today is 7/31/2019
+
+Agenda:
+ 	Mostly we will talk about Extent report.
+ 	Hopefully, we will have a time to cover testng.xml file.
+
+ Saturday:
+ final framework
+ tell me about your framework based on testng
+ parameters, data provider, and different configuration for testng.xml file.
+
+ #######################################
+
+ Reporting is one of the most important things in your project. This is what people read, analyze in order to understand how many scripts passed, failed or ignored.
+
+ Every morning around 7 am I am getting email notification with smoke test results.
+
+ ###############
+
+Smoke test failed/passed
+
+Please see the details in the link below:
+
+repository.cybertekschool.com/reports/regression_report.html
+
+Usually, it's a HTML file.
+
+###############
+
+
+Why do we need a smoke test and why entire team receives report very morning?
+
+If server is down, usually Devops or environment team fix it.
+
+It's important to know status of environments in the morning.
+
+ The ExtentHtmlReporter creates a rich standalone HTML file. It allows several
+ configuration options via the <code>config()</code> method.
+
+
+We use info instead of sysmout.
+
+
+FOR WINDOWS TRY:
+
+for windows user try to use \\ instead of / .Sometimes it works
+
+
+How does it take picture in headless mode?
+
+
+It takes a screenshot.
+
+
+#####################
+
+
+package com.vytrack.utilities;
+
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.testng.ITestResult;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeTest;
+
+import java.io.File;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.concurrent.TimeUnit;
+
+public class TestBase {
+
+    //should be public/protected !!!!
+    public WebDriver driver;
+    public Actions action;
+
+    //we need this object for building reports, but it doesn't build itself
+    protected ExtentReports report;
+    protected ExtentHtmlReporter htmlReporter;
+    protected ExtentTest extentLogger;
+
+    @BeforeTest
+    public void testSetup(){
+        //we are creating actual reporter
+        report = new ExtentReports();
+        //this is path to the report itself
+        String pathToReport = System.getProperty("user.dir")+"/test-output/report.html";
+        htmlReporter = new ExtentHtmlReporter(pathToReport);
+
+        report.attachReporter(htmlReporter);
+
+        //we can add system information to report
+        report.setSystemInfo("OS", System.getProperty("os.name"));
+
+        htmlReporter.config().setDocumentTitle("VYTrack Test Automation");
+
+    }
+
+    @BeforeMethod
+    public void setup(){
+        driver = Driver.getDriver();
+        action = new Actions(driver);
+        driver.manage().timeouts().implicitlyWait(Long.valueOf(ConfigurationReader.getProperty("implicitwait")), TimeUnit.SECONDS);
+        driver.manage().window().maximize();
+        driver.get(ConfigurationReader.getProperty("url"));
+    }
+
+
+    //ITestresult describes the result of a test.
+    //we can determine if test failed, passed or ignored
+    @AfterMethod
+    public void teardown(ITestResult result){
+        if(ITestResult.FAILURE == result.getStatus()) {
+           //if test failed get a screenshot and save the location to the image
+            String pathToTheScreenshot = SeleniumUtils.getScreenshot(result.getName());
+
+            // capture the name of a test method that failed
+            extentLogger.fail(result.getName());
+            try {
+                //to add screenshot into report
+                extentLogger.addScreenCaptureFromPath(pathToTheScreenshot);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            //to add thrown exception into report
+            extentLogger.fail(result.getThrowable());
+        }else if(result.getStatus() == ITestResult.SKIP){
+            //if test skipped, this information will appear on the report
+            extentLogger.skip("Test case skipped "+result.getName());
+        }
+        Driver.closeDriver();
+    }
+
+    @AfterTest
+    public void tearDownTest(){
+        report.flush();
+    }
+}
+
+// use this to log the steps
+//For example: clicking on this, entering text, verifying something etc.
+//In this case you make your report more readable
+ extentLogger.info("Clicking on remember me");
+
+
+//record if something passed, it will be on the report
+ extentLogger.pass("Verified that page name is Dashboard");
+
+//we can attach screen shot on any stage of automation run, but at least we need it for @AfterMethod to capture failed test.
+  extentLogger.addScreenCaptureFromPath(pathToTheScreenshot);
+
+
+Don't forget about these classes, otherwise it will not work.
+
+  //we need this object for building reports, but it doesn't build itself
+    protected ExtentReports report;
+    protected ExtentHtmlReporter htmlReporter;
+    protected ExtentTest extentLogger;\
+
+
+Do not forget to flush report at end
+Writes test information from the started reporters to their output view
+ @AfterTest
+    public void tearDownTest(){
+        report.flush();
+    }
+
+VERY IMPORTANT !! Do not forget to create a test at the beginning of every test
+
+
+   @Test
+    public void loginTest1(){
+        //this is required, otherwise you will get null pointer exception
+        extentLogger = report.createTest("Login as a store manager");
+    }
+
+The you can use:
+extentLogger.pass
+extentLogger.fail
+extentLogger.ignore
+extentLogger.debug
+
+

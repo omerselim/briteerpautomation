@@ -35,47 +35,55 @@ import org.testng.annotations.Test;
 public class DeleteOpportunityTest extends TestBase {
 
     OpportunityPage opportunity = new OpportunityPage();
-    int i = 0;
 
     @Test(priority = 1)
-    public void PreConditionCreateOpportunity1() {
-        System.out.println("==============================\nPrecondition Creating Opportunities\n------------------------------");
+    public void PreConditionCreateOpportunity() {
+        int NumOfNewOpportunities = 3;
+        extentLogger = report.createTest("Creating "+NumOfNewOpportunities+" new opportunities for precondition ");
+        BriteErpUtilsOST.login();
+        SeleniumUtils.waitPlease(2);
         BriteErpUtilsOST.navigateToModule("CRM");
         SeleniumUtils.waitPlease(2);
-        BriteErpUtilsOST.captureScreenShot("PreConditionCreateOpportunity1"+(++i));
-        OpportunityPage.createOpportunity(4,4,4);
-        OpportunityPage.createOpportunity(3,5,4);
-        OpportunityPage.createOpportunity(5,6,3);
+        OpportunityPage.createOpportunity(NumOfNewOpportunities);
         SeleniumUtils.waitPlease(2);
-        BriteErpUtilsOST.captureScreenShot("PreConditionCreateOpportunity1"+(++i));
+        BriteErpUtilsOST.logout();
+        SeleniumUtils.waitPlease(1);
+        extentLogger.pass(NumOfNewOpportunities+" opportunit(y/ies) has/have been created.");
+
     }
 
 
-   @Test(priority = 2)
+    @Test(priority = 2)
     public void deleteOpportunity1() {
-        System.out.println("==============================\nProceeding deleteOpportunity1 Test\n------------------------------");
+        extentLogger = report.createTest("Deleting Opportunity 1 ");
+        BriteErpUtilsOST.login();
+        SeleniumUtils.waitPlease(2);
         BriteErpUtilsOST.navigateToModule("CRM");
         SeleniumUtils.waitPlease(2);
-        BriteErpUtilsOST.captureScreenShot("deleteOpportunity1"+(++i));
         SeleniumUtils.clickWithJS(opportunity.optToggleElement);
         SeleniumUtils.waitPlease(1);
         opportunity.DeleteButton1Locator.click();
         SeleniumUtils.waitPlease(1);
         opportunity.okButton1Locator.click();
         SeleniumUtils.waitPlease(1);
-        BriteErpUtilsOST.captureScreenShot("deleteOpportunity1"+(++i));
+        BriteErpUtilsOST.logout();
+        SeleniumUtils.waitPlease(1);
+        extentLogger.pass("First opportunity has been deleted.");
     }
 
     @Test(priority = 3)
     public void deleteOpportunity2() {
-        System.out.println("==============================\nProceeding deleteOpportunity2 Test\n------------------------------");
-        BriteErpUtilsOST.navigateToModule("CRM");
+        extentLogger = report.createTest("Deleting Opportunity 2 ");
+        BriteErpUtilsOST.login();
         SeleniumUtils.waitPlease(2);
+        BriteErpUtilsOST.navigateToModule("CRM");
+        SeleniumUtils.waitPlease(1);
+
         opportunity.FirstOptElement.click();
         SeleniumUtils.waitPlease(1);
         String OptNumberBeforeDelete = opportunity.optNumberBeforeDelete.getText();
         int OnBd = Integer.parseInt(OptNumberBeforeDelete);
-        BriteErpUtilsOST.captureScreenShot("deleteOpportunity2"+(++i));
+
         opportunity.ActionButtonLocator.click();
         SeleniumUtils.waitPlease(1);
         opportunity.DeleteButton2Locator.click();
@@ -83,23 +91,29 @@ public class DeleteOpportunityTest extends TestBase {
         SeleniumUtils.waitPlease(1);
         String OptNumberAfterDelete = opportunity.optNumberAfterDelete.getText();
         int OnAd = Integer.parseInt(OptNumberAfterDelete);
-        BriteErpUtilsOST.captureScreenShot("deleteOpportunity2"+(++i));
-        System.out.println("Opportunity Number Before Delete :"+OptNumberBeforeDelete);
-        System.out.println("Opportunity Number After Delete :"+OptNumberAfterDelete);
+
+        extentLogger.info("Opportunity Number Before Delete :"+OptNumberBeforeDelete);
+        extentLogger.info("Opportunity Number After Delete :"+OptNumberAfterDelete);
         Assert.assertEquals((OnAd+1),OnBd);
+        BriteErpUtilsOST.logout();
+        SeleniumUtils.waitPlease(1);
+        extentLogger.pass("Second opportunity has been deleted.");
 
     }
 
     @Test(priority = 4)
     public void deleteOpportunity3() {
-        System.out.println("==============================\nProceeding deleteOpportunity3 Test\n------------------------------");
-        BriteErpUtilsOST.navigateToModule("CRM");
+        extentLogger = report.createTest("Deleting Opportunity 3 ");
+        BriteErpUtilsOST.login();
         SeleniumUtils.waitPlease(2);
+        BriteErpUtilsOST.navigateToModule("CRM");
+        SeleniumUtils.waitPlease(1);
+
         opportunity.listElement.click();
         SeleniumUtils.waitPlease(1);
         String OptNumberBeforeDelete = opportunity.optNumberBeforeDelete.getText();
         int OnBd = Integer.parseInt(OptNumberBeforeDelete);
-        BriteErpUtilsOST.captureScreenShot("deleteOpportunity3"+(++i));
+
         opportunity.checkBoxLocator.click();
         opportunity.ActionButtonLocator.click();
         SeleniumUtils.waitPlease(1);
@@ -108,11 +122,13 @@ public class DeleteOpportunityTest extends TestBase {
         SeleniumUtils.waitPlease(1);
         String OptNumberAfterDelete = opportunity.optNumberAfterDelete.getText();
         int OnAd = Integer.parseInt(OptNumberAfterDelete);
-        BriteErpUtilsOST.captureScreenShot("deleteOpportunity3"+(++i));
-        System.out.println("Opportunity Number Before Delete :"+OptNumberBeforeDelete);
-        System.out.println("Opportunity Number After Delete :"+OptNumberAfterDelete);
-        Assert.assertEquals((OnAd+1),OnBd);
 
+        extentLogger.info("Opportunity Number Before Delete :"+OptNumberBeforeDelete);
+        extentLogger.info("Opportunity Number After Delete :"+OptNumberAfterDelete);
+        Assert.assertEquals((OnAd+1),OnBd);
+        BriteErpUtilsOST.logout();
+        SeleniumUtils.waitPlease(1);
+        extentLogger.pass("Third opportunity has been deleted.");
 
     }
 

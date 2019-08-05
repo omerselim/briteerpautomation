@@ -85,36 +85,42 @@ public class OpportunityPage {
         PageFactory.initElements(Driver.getDriver(), this);
     }
 
-    public static void createOpportunity(int NumOfFnameCharcters, int NumOfLnameCharcters, int numberOfDigit ) {
-        String firstName = OpportunityPage.randomName(NumOfFnameCharcters);
-        String lastName = OpportunityPage.randomLastName(NumOfLnameCharcters);
-        String Title = firstName+" "+lastName;
-        String Revenue = OpportunityPage.randomRevenue(numberOfDigit);
-        OpportunityPage opportunity = new OpportunityPage();
-        SeleniumUtils.waitPlease(1);
-        opportunity.CreateElement.click();
-        SeleniumUtils.waitPlease(1);
-        opportunity.OpportunityTitle.sendKeys(Title);
-        SeleniumUtils.waitPlease(1);
-        opportunity.CustomerElement.click();
-        opportunity.CustomerChoiceElement.click();
-        opportunity.ExpectedRevenueElement.click();
-        opportunity.ExpectedRevenueElement.clear();
-        opportunity.ExpectedRevenueElement.sendKeys(Revenue);
-        SeleniumUtils.waitPlease(1);
-        opportunity.TwoStarElement.click();
-        SeleniumUtils.waitPlease(1);
-        opportunity.CreateFinalElement.click();
 
+
+    public static void createOpportunity(int NamOfNewOpportunities ) {
+
+        for (int i=0; i < NamOfNewOpportunities; i++) {
+
+            String firstName=OpportunityPage.randomFirstName();
+            String lastName=OpportunityPage.randomLastName();
+            String Title=firstName + " " + lastName;
+            String Revenue=OpportunityPage.randomRevenue();
+            OpportunityPage opportunity=new OpportunityPage();
+            SeleniumUtils.waitPlease(1);
+            opportunity.CreateElement.click();
+            SeleniumUtils.waitPlease(1);
+            opportunity.OpportunityTitle.sendKeys(Title);
+//            SeleniumUtils.waitPlease(1);
+            opportunity.CustomerElement.click();
+            opportunity.CustomerChoiceElement.click();
+            opportunity.ExpectedRevenueElement.click();
+            opportunity.ExpectedRevenueElement.clear();
+            opportunity.ExpectedRevenueElement.sendKeys(Revenue);
+ //           SeleniumUtils.waitPlease(1);
+            opportunity.TwoStarElement.click();
+ //           SeleniumUtils.waitPlease(1);
+            opportunity.CreateFinalElement.click();
+
+        }
     }
 
-    public static String randomName(int NumOfFnameCharcters) {
+    public static String randomFirstName(){
         Random rand = new Random();
         String choices2 = "abcdefghijklmnopqrstuvwxyz" ;
         String choices1 = choices2.toUpperCase();
         int i = 0;
         String name = choices1.charAt( rand.nextInt( choices1.length()))+ "";
-        while ( i<NumOfFnameCharcters ) {
+        while ( i<SeleniumUtils.OneDigitRanNum() ) {
 
             name = name + choices2.charAt( rand.nextInt( choices2.length() ) );
             i= i + 1;
@@ -122,13 +128,13 @@ public class OpportunityPage {
         return name;
     }
 
-    public static String randomLastName(int NumOfLnameCharcters) {
+    public static String randomLastName() {
         Random rand = new Random();
         String choices2 = "abcdefghijklmnopqrstuvwxyz" ;
         String choices1 = choices2.toUpperCase();
         int i = 0;
         String name = choices1.charAt( rand.nextInt( choices1.length()))+ "";
-        while ( i<NumOfLnameCharcters -1) {
+        while ( i<SeleniumUtils.OneDigitRanNum() ) {
 
             name = name + choices2.charAt( rand.nextInt( choices2.length() ) );
             i= i + 1;
@@ -136,13 +142,13 @@ public class OpportunityPage {
         return name;
     }
     // numberes before point  x x x . __  whole number  parts
-    public static String randomRevenue(int numberOfDigit) {
+    public static String randomRevenue() {
         Random rand = new Random();
         String choices1 = "123456789" ;
         String choices2= "1234567890" ;
 
         String number1 = choices1.charAt( rand.nextInt( choices1.length()))+ "";
-        for (int i=0;  i<numberOfDigit-1; i++) {
+        for (int i=0;  i<SeleniumUtils.OneDigitRanNum(); i++) {
             number1 = number1 + choices2.charAt( rand.nextInt( choices2.length() ) );
         }
 

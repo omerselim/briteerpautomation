@@ -1,12 +1,22 @@
 package com.briteerp.utilities;
 
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import org.testng.ITestResult;
+
+import java.io.File;
+import java.io.IOException;
 import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -219,7 +229,7 @@ public class SeleniumUtils {
 
 
 //============================================================================================
-//    Explicit tWait
+//    Explicit Wait
 //--------------------------------------------------------------------------------------------
 
     /**
@@ -487,6 +497,7 @@ public class SeleniumUtils {
             number1 = number1 + choices2.charAt( rand.nextInt( choices2.length() ) );
         }
 
+
 // decimal parts _ _ _ . x x
 
         String number2="";
@@ -496,6 +507,78 @@ public class SeleniumUtils {
         String number = number1+"."+number2;
         return number;
     }
+
+//------------------------------------------------------------------------------------------
+// numberes before point  x x x . _ _  whole parts
+
+    public static int OneDigitRanNum() {
+        Random rand = new Random();
+        String choices1 = "123456" ;
+
+        String number = choices1.charAt( rand.nextInt( choices1.length()))+"";
+        int num = Integer.parseInt(number);
+
+        return num;
+    }
+
+
+
+
+//============================================================================================
+//    ScreenShoot
+//--------------------------------------------------------------------------------------------
+
+    /**
+     * This method will take a screenshot
+     * @param name
+     * @return
+     */
+    public static String getScreenshot(String name)  {
+        // name the screenshot with the current date time to avoid duplicate name
+        String date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_hh:mm:ss a"));
+        // TakesScreenshot ---> interface from selenium which takes screenshots
+        TakesScreenshot ts = (TakesScreenshot) Driver.getDriver();
+        File source = ts.getScreenshotAs(OutputType.FILE);
+        // full path to the screenshot location
+        String target = System.getProperty("user.dir") + "/test-output/Screenshots/" + name + date + ".png";
+
+        File finalDestination = new File(target);
+        // save the screenshot to the path given
+        try {
+            FileUtils.copyFile(source, finalDestination);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return target;
+    }
+//-------------------------------------------------------------------------------------------------
+    /**
+     * This method will take a screenshot
+     * @param name
+     * @return
+     */
+    public static String getScreenshot2(String name)  {
+        // name the screenshot with the current date time to avoid duplicate name
+        String date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy_MM_dd_hh_mm_ss"));
+        // TakesScreenshot ---> interface from selenium which takes screenshots
+        TakesScreenshot ts = (TakesScreenshot) Driver.getDriver();
+        File source = ts.getScreenshotAs(OutputType.FILE);
+        // full path to the screenshot location
+        String target = System.getProperty("user.dir") + "/test-output/Screenshots/" + name + date + ".png";
+        File finalDestination = new File(target);
+        // save the screenshot to the path given
+        try {
+            FileUtils.copyFile(source, finalDestination);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return target;
+    }
+
+
+
+
+
 
 
 //============================================================================================
