@@ -1,4 +1,4 @@
-package com.briteerp.utilities2;
+package com.briteerp.utilities;
 
 import com.briteerp.notes.ActivitiesPage;
 import com.briteerp.notes.HomePage;

@@ -1,8 +1,10 @@
 package com.briteerp.pages.CRM;
 
+import com.briteerp.utilities.BriteErpUtilsOST;
 import com.briteerp.utilities.ConfigurationReader;
 import com.briteerp.utilities.Driver;
 import com.briteerp.utilities.SeleniumUtils;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -65,14 +67,33 @@ public class OpportunityPage {
     @FindBy(xpath="(//div[@class='o_input_dropdown'])[1]")
     public WebElement CustomerElement ;
 
-    @FindBy(xpath="(//li[@class='ui-menu-item'])[1]")
-    public WebElement CustomerChoiceElement ;
+    @FindBy(xpath="//a[contains(text(),'Search More...')]")
+    public WebElement SearchMoreElement ;
 
-    @FindBy(css="[class='o_field_float o_field_number o_field_widget o_input']")
+    @FindBy(css= "tbody[class='ui-sortable']")
+    public static WebElement CustomerTable ;
+
+    @FindBy(xpath="(//li[@class='ui-menu-item'])[1]")
+    public WebElement CustomerChoiceTableElement ;
+
+
+    @FindBy(xpath= "(//span[contains(text(),'Create')])[3]")
+    public WebElement CreateCustomerElement ;
+
+//    @FindBy(xpath="(//li[@class='ui-menu-item'])[1]")
+//    public WebElement CustomerChoiceElement ;
+
+    @FindBy(css="input[name='planned_revenue']")
     public WebElement ExpectedRevenueElement ;
 
-    @FindBy(xpath="//table[@class='o_group o_inner_group o_group_col_6']//div[@name='priority']//a[@title='Very High']")
+    @FindBy(css="table[class='o_group o_inner_group o_group_col_6'] div[name='priority'] a[title='Low']")
+    public WebElement OneStarElement ;
+
+    @FindBy(xpath="//table[@class='o_group o_inner_group o_group_col_6']//div[@name='priority']//a[@title='High']")
     public WebElement TwoStarElement ;
+
+    @FindBy(xpath="//table[@class='o_group o_inner_group o_group_col_6']//div[@name='priority']//a[@title='Very High']")
+    public WebElement ThreeStarElement ;
 
     @FindBy(xpath="Priority")
     public WebElement priorityElement ;
@@ -87,40 +108,46 @@ public class OpportunityPage {
 
 
 
-    public static void createOpportunity(int NamOfNewOpportunities ) {
+    public static void createOpportunity(int NamOfNewOpportunities, int maxNumberOfLatter ,int maxDigit) {
 
         for (int i=0; i < NamOfNewOpportunities; i++) {
 
-            String firstName=OpportunityPage.randomFirstName();
-            String lastName=OpportunityPage.randomLastName();
+            String firstName=OpportunityPage.randomFirstName(maxNumberOfLatter);
+            String lastName=OpportunityPage.randomLastName(maxNumberOfLatter);
             String Title=firstName + " " + lastName;
-            String Revenue=OpportunityPage.randomRevenue();
+            String Revenue=OpportunityPage.randomRevenue(maxDigit);
             OpportunityPage opportunity=new OpportunityPage();
-            SeleniumUtils.waitPlease(1);
+            SeleniumUtils.waitPlease(2);
             opportunity.CreateElement.click();
-            SeleniumUtils.waitPlease(1);
+            SeleniumUtils.waitPlease(2);
             opportunity.OpportunityTitle.sendKeys(Title);
 //            SeleniumUtils.waitPlease(1);
             opportunity.CustomerElement.click();
-            opportunity.CustomerChoiceElement.click();
+            SeleniumUtils.waitPlease(1);
+            opportunity.SearchMoreElement.click();
+            SeleniumUtils.waitPlease(1);
+//            System.out.println(BriteErpUtilsOST.getCountOfRows(By.cssSelector("tbody[class='ui-sortable']>tr")));
+            opportunity.clickRandomCustomer();
+
+//            opportunity.CustomerChoiceElement.click();
             opportunity.ExpectedRevenueElement.click();
             opportunity.ExpectedRevenueElement.clear();
             opportunity.ExpectedRevenueElement.sendKeys(Revenue);
  //           SeleniumUtils.waitPlease(1);
-            opportunity.TwoStarElement.click();
+            opportunity.clickStar();
  //           SeleniumUtils.waitPlease(1);
             opportunity.CreateFinalElement.click();
 
         }
     }
 
-    public static String randomFirstName(){
+    public static String randomFirstName(int maxNumberOfLatter){
         Random rand = new Random();
         String choices2 = "abcdefghijklmnopqrstuvwxyz" ;
         String choices1 = choices2.toUpperCase();
         int i = 0;
         String name = choices1.charAt( rand.nextInt( choices1.length()))+ "";
-        while ( i<SeleniumUtils.OneDigitRanNum() ) {
+        while ( i<SeleniumUtils.randomInt(maxNumberOfLatter)) {
 
             name = name + choices2.charAt( rand.nextInt( choices2.length() ) );
             i= i + 1;
@@ -128,13 +155,13 @@ public class OpportunityPage {
         return name;
     }
 
-    public static String randomLastName() {
+    public static String randomLastName(int maxNumberOfLatter) {
         Random rand = new Random();
         String choices2 = "abcdefghijklmnopqrstuvwxyz" ;
         String choices1 = choices2.toUpperCase();
         int i = 0;
         String name = choices1.charAt( rand.nextInt( choices1.length()))+ "";
-        while ( i<SeleniumUtils.OneDigitRanNum() ) {
+        while ( i<SeleniumUtils.randomInt(maxNumberOfLatter) ) {
 
             name = name + choices2.charAt( rand.nextInt( choices2.length() ) );
             i= i + 1;
@@ -142,13 +169,13 @@ public class OpportunityPage {
         return name;
     }
     // numberes before point  x x x . __  whole number  parts
-    public static String randomRevenue() {
+    public static String randomRevenue(int maxDigit) {
         Random rand = new Random();
         String choices1 = "123456789" ;
         String choices2= "1234567890" ;
 
         String number1 = choices1.charAt( rand.nextInt( choices1.length()))+ "";
-        for (int i=0;  i<SeleniumUtils.OneDigitRanNum(); i++) {
+        for (int i=1;  i<SeleniumUtils.randomInt(maxDigit); i++) {
             number1 = number1 + choices2.charAt( rand.nextInt( choices2.length() ) );
         }
 
@@ -160,6 +187,46 @@ public class OpportunityPage {
         String number = number1+"."+number2;
         return number;
     }
+
+    public static double randomDecimal(int max) {
+        Random rand = new Random();
+        return max*(rand.nextDouble());
+    }
+
+
+
+
+    public void clickRandomCustomer() {
+        OpportunityPage opportunity=new OpportunityPage();
+        int size =BriteErpUtilsOST.getCountOfRows(By.cssSelector("tbody[class='ui-sortable']>tr")); // table[id='table1'] > tbody>tr
+        int random=SeleniumUtils.randomInt(size);
+        Driver.getDriver().findElement(By.cssSelector("tbody[class='ui-sortable'] tr:nth-of-type(" + random + ")")).click();
+//        Driver.getDriver().findElement(By.xpath("//li[@class='ui-menu-item'])["+random+"]")).click();
+
+    }
+
+    public void clickStar() {
+        OpportunityPage opportunity=new OpportunityPage();
+        int n = SeleniumUtils.randomInt(3);
+        switch (n){
+           case 1:
+               opportunity.OneStarElement.click();
+               break;
+           case 2:
+               opportunity.TwoStarElement.click();
+               break;
+           case 3:
+               opportunity.ThreeStarElement.click();
+               break;
+           default:
+               break;
+         }
+
+
+    }
+
+
+
 
 
 

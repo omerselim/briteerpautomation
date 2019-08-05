@@ -13,9 +13,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class loginPage {
+public class LoginPage {
 
-    public loginPage(){
+    public LoginPage(){
         PageFactory.initElements(Driver.getDriver(), this);
     }
 

@@ -44,7 +44,7 @@ public class DeleteOpportunityTest extends TestBase {
         SeleniumUtils.waitPlease(2);
         BriteErpUtilsOST.navigateToModule("CRM");
         SeleniumUtils.waitPlease(2);
-        OpportunityPage.createOpportunity(NumOfNewOpportunities);
+        OpportunityPage.createOpportunity(NumOfNewOpportunities,4,4);
         SeleniumUtils.waitPlease(2);
         BriteErpUtilsOST.logout();
         SeleniumUtils.waitPlease(1);

@@ -338,7 +338,7 @@ public class SeleniumUtils {
      * @return
      */
     public static WebElement waitForClickablility(By locator, int timeout) {
-        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), timeout);
+        WebDriverWait wait = new WebDriverWait(Driver.getDriver(),  Duration.ofSeconds(timeout));
         return wait.until(ExpectedConditions.elementToBeClickable(locator));
     }
 
@@ -509,18 +509,18 @@ public class SeleniumUtils {
     }
 
 //------------------------------------------------------------------------------------------
-// numberes before point  x x x . _ _  whole parts
 
-    public static int OneDigitRanNum() {
+
+//----------------------------------------------------------------------------
+    public static int randomInt(int max) {
         Random rand = new Random();
-        String choices1 = "123456" ;
-
-        String number = choices1.charAt( rand.nextInt( choices1.length()))+"";
-        int num = Integer.parseInt(number);
-
-        return num;
+        return (rand.nextInt(max) + 1);
     }
 
+    public static double randomDecimal(int max) {
+        Random rand = new Random();
+        return max*(rand.nextDouble());
+    }
 
 
 

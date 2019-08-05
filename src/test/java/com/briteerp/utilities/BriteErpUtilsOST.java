@@ -1,13 +1,10 @@
 package com.briteerp.utilities;
 
-import com.briteerp.pages.login.loginPage;
+import com.briteerp.pages.login.LoginPage;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
 import java.io.File;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -28,21 +25,21 @@ public class BriteErpUtilsOST {
 //   Login - Logout
 //----------------------------------------------------------------------------------------------------
     public static void login(){
-        loginPage login = new loginPage();
+        LoginPage login = new LoginPage();
         login.userNameElement.sendKeys(ConfigurationReader.getProperty("username"));
         login.passwordElement.sendKeys(ConfigurationReader.getProperty("password"));
         login.loginButtonElement.click();
     }
 
     public static void login(String username, String password){
-        loginPage login = new loginPage();
+        LoginPage login = new LoginPage();
         login.userNameElement.sendKeys(username);
         login.passwordElement.sendKeys(password);
         login.loginButtonElement.click();
     }
 
     public static void logout() {
-        loginPage logout=new loginPage();
+        LoginPage logout=new LoginPage();
         logout.ManagerLocator.click();
         logout.logOutLocator.click();
  //       SeleniumUtils.waitPlease(1);

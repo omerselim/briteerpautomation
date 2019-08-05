@@ -1,5 +1,5 @@
 package com.briteerp.tests.components.login;
-import com.briteerp.pages.login.loginPage;
+import com.briteerp.pages.login.LoginPage;
 import com.briteerp.utilities.BriteErpUtilsOST;
 import com.briteerp.utilities.Driver;
 import com.briteerp.utilities.SeleniumUtils;
@@ -7,8 +7,8 @@ import com.briteerp.utilities.TestBase;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class loginTest extends TestBase {
-    loginPage login = new loginPage();
+public class LoginTest extends TestBase {
+    LoginPage login = new LoginPage();
 
     @Test
     public void validCredential() {
