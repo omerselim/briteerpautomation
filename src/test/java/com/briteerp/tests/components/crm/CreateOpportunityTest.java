@@ -28,16 +28,12 @@ public class CreateOpportunityTest extends TestBase {
 
     @Test
     public void createNewOpportunity() {
-        int NumOfNewOpportunities =10;
+        int NumOfNewOpportunities =5;
         extentLogger=report.createTest("Creating "+NumOfNewOpportunities+" new opportunities ");
-        BriteErpUtilsOST.login();
-        SeleniumUtils.waitPlease(2);
-        BriteErpUtilsOST.navigateToModule("CRM");
-        SeleniumUtils.waitPlease(2);
-        OpportunityPage.createOpportunity(NumOfNewOpportunities,7,3);
-        SeleniumUtils.waitPlease(2);
-        BriteErpUtilsOST.logout();
-        SeleniumUtils.waitPlease(2);
+        BriteErpUtilsOST.login();                              SeleniumUtils.waitPlease(2);
+        BriteErpUtilsOST.navigateToModule("CRM");          SeleniumUtils.waitPlease(2);
+        OpportunityPage.createOpportunity(NumOfNewOpportunities,7,3);           SeleniumUtils.waitPlease(2);
+        BriteErpUtilsOST.logout();                              SeleniumUtils.waitPlease(2);
         extentLogger.pass(NumOfNewOpportunities+" opportunit(y/ies) has/have been created.");
 
     }

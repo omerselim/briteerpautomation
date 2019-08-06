@@ -1,4 +1,4 @@
-package com.briteerp.utilities2;
+package com.briteerp.notes;
 
 public class ApplicationConstants {
 

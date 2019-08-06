@@ -13,22 +13,18 @@ import java.text.DecimalFormat;
 public class PipelineRevenueTest extends TestBase {
     PipelineRevenuePage crmPipelineRev = new PipelineRevenuePage();
     int n = 0;
-/*
-Acceptance Criteria:
-1.  Verify that second opportunity’ Expected Revenue value on the Pivot board should be the same
-    as the Expected revenue column value on the list board.
-*/
+
 
     @Test(priority = 1)
     public void PreConditionCreateOpportunity() {
         int NumOfNewOpportunities =3;
         extentLogger=report.createTest("Creating "+NumOfNewOpportunities+" new opportunities for precondition ");
         BriteErpUtilsOST.login();
-        SeleniumUtils.waitPlease(2);
+        SeleniumUtils.waitPlease(1);
         BriteErpUtilsOST.navigateToModule("CRM");
-//        SeleniumUtils.waitPlease(2);
-        OpportunityPage.createOpportunity(NumOfNewOpportunities,4,4);
-        SeleniumUtils.waitPlease(2);
+//        SeleniumUtils.waitPlease(1);
+        OpportunityPage.createOpportunity(NumOfNewOpportunities,4,3);
+        SeleniumUtils.waitPlease(1);
         BriteErpUtilsOST.logout();
         extentLogger.pass(NumOfNewOpportunities+" opportunit(y/ies) has/have been created.");
 
@@ -42,14 +38,11 @@ Acceptance Criteria:
     @Test(priority=2)
     public void verifySumOfRevenuesEqual() throws IOException {
         extentLogger=report.createTest("Verify that the Sum of Revenues is equal to the Total Revenue");
-        BriteErpUtilsOST.login();
-        SeleniumUtils.waitPlease(2);
+        BriteErpUtilsOST.login();       SeleniumUtils.waitPlease(2);
         BriteErpUtilsOST.navigateToModule("CRM");
-        crmPipelineRev.pivotElement.click();
-        SeleniumUtils.waitPlease(1);
-        crmPipelineRev.totalRowElement.click();
-        crmPipelineRev.opportunityElement.click();
-        SeleniumUtils.waitPlease(1);
+        crmPipelineRev.pivotElement.click();            // SeleniumUtils.waitPlease(1);
+        crmPipelineRev.totalRowElement.click();         // SeleniumUtils.waitPlease(1);
+        crmPipelineRev.opportunityElement.click();       SeleniumUtils.waitPlease(1);
 
         extentLogger.info("Verification of Sum of Revenues");
         double SumOfRevenues = (BriteErpUtilsOST.getSumOfColumn(crmPipelineRev.column2Element))/3;
@@ -74,13 +67,11 @@ Acceptance Criteria:
     @Test(priority=3)
     public void verifyRevenues() {
         extentLogger=report.createTest("Verify Pivot-TotalRevenue equals List-TotalRevenue");
-        BriteErpUtilsOST.login();
-        SeleniumUtils.waitPlease(2);
+        BriteErpUtilsOST.login();       SeleniumUtils.waitPlease(2);
         BriteErpUtilsOST.navigateToModule("CRM");
 
         extentLogger.info("Verification of Pivot-TotalRevenue");
-        crmPipelineRev.pivotElement.click();
-        SeleniumUtils.waitPlease(1);
+        crmPipelineRev.pivotElement.click();        SeleniumUtils.waitPlease(1);
         String PivotExpectedRevenue = crmPipelineRev.PivotTotalExpectedRevenueElement.getText();
         extentLogger.info("Verified that the Pivot-TotalRevenue is $ "+PivotExpectedRevenue);
 
@@ -94,9 +85,6 @@ Acceptance Criteria:
         extentLogger.pass("Verified both numbers are equal");
     }
 /*
-    User story:
-    The system should display the correct information for each opportunity on the view list
-    page and the pivot table.
     Acceptance Criteria:
     1.Verify that second opportunity’ Expected Revenue value on the Pivot board should be the same
     as the Expected revenue column value on the list board.
@@ -110,15 +98,15 @@ Acceptance Criteria:
         BriteErpUtilsOST.navigateToModule("CRM");
 
         extentLogger.info("Verification of the List Oportunity-Expected Revenue");
-        crmPipelineRev.listElement.click();             SeleniumUtils.waitPlease(1);
-        crmPipelineRev.headCustomerElement.click();     SeleniumUtils.waitPlease(1);
+        crmPipelineRev.listElement.click();             //SeleniumUtils.waitPlease(1);
+        crmPipelineRev.headCustomerElement.click();     //SeleniumUtils.waitPlease(1);
         String ListNumExpectedRevenue = PipelineRevenuePage.choseRandomRevenueFromList();
         extentLogger.info("Verified that the List "+PipelineRevenuePage.nthRowOfTable+". opportunity-Expected Revenue is $ "+ListNumExpectedRevenue);
 
         extentLogger.info("Verification of the Pivot Opportunity-Expected Revenue");
-        crmPipelineRev.pivotElement.click();             SeleniumUtils.waitPlease(1);
-        crmPipelineRev.totalRowElement.click();          SeleniumUtils.waitPlease(1);
-        crmPipelineRev.opportunityElement.click();       SeleniumUtils.waitPlease(1);
+        crmPipelineRev.pivotElement.click();            // SeleniumUtils.waitPlease(1);
+        crmPipelineRev.totalRowElement.click();         // SeleniumUtils.waitPlease(1);
+        crmPipelineRev.opportunityElement.click();      // SeleniumUtils.waitPlease(1);
         String PivotNthExpectedRevenue = PipelineRevenuePage.choseRandomRevenueFromPivot();
         extentLogger.info("Verified that the Pivot "+PipelineRevenuePage.nthRowOfTable+". opportunity-Expected Revenue is $ "+PivotNthExpectedRevenue);
 

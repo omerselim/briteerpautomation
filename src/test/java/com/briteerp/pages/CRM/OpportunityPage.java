@@ -76,12 +76,8 @@ public class OpportunityPage {
     @FindBy(xpath="(//li[@class='ui-menu-item'])[1]")
     public WebElement CustomerChoiceTableElement ;
 
-
     @FindBy(xpath= "(//span[contains(text(),'Create')])[3]")
     public WebElement CreateCustomerElement ;
-
-//    @FindBy(xpath="(//li[@class='ui-menu-item'])[1]")
-//    public WebElement CustomerChoiceElement ;
 
     @FindBy(css="input[name='planned_revenue']")
     public WebElement ExpectedRevenueElement ;
@@ -106,7 +102,7 @@ public class OpportunityPage {
         PageFactory.initElements(Driver.getDriver(), this);
     }
 
-
+//----------------------------------------------------------------------------------------------------------
 
     public static void createOpportunity(int NamOfNewOpportunities, int maxNumberOfLatter ,int maxDigit) {
 
@@ -117,15 +113,15 @@ public class OpportunityPage {
             String Title=firstName + " " + lastName;
             String Revenue=OpportunityPage.randomRevenue(maxDigit);
             OpportunityPage opportunity=new OpportunityPage();
-            SeleniumUtils.waitPlease(2);
+            SeleniumUtils.waitPlease(1);
             opportunity.CreateElement.click();
-            SeleniumUtils.waitPlease(2);
+//            SeleniumUtils.waitPlease(2);
             opportunity.OpportunityTitle.sendKeys(Title);
 //            SeleniumUtils.waitPlease(1);
             opportunity.CustomerElement.click();
-            SeleniumUtils.waitPlease(1);
+//            SeleniumUtils.waitPlease(1);
             opportunity.SearchMoreElement.click();
-            SeleniumUtils.waitPlease(1);
+//            SeleniumUtils.waitPlease(1);
 //            System.out.println(BriteErpUtilsOST.getCountOfRows(By.cssSelector("tbody[class='ui-sortable']>tr")));
             opportunity.clickRandomCustomer();
 
@@ -137,7 +133,7 @@ public class OpportunityPage {
             opportunity.clickStar();
  //           SeleniumUtils.waitPlease(1);
             opportunity.CreateFinalElement.click();
-
+            SeleniumUtils.waitPlease(1);
         }
     }
 
@@ -230,22 +226,7 @@ public class OpportunityPage {
 
 
 
-//    //    let's write a method that would return collection of repeat options
-//    public List<String> getRepeatOptions(){
-//        //we crated select object to work with dropdown
-//        Select select = new Select(driver.findElement(By.cssSelector(repeatsDropdownLocator)));
-//        //.getOptions(); return all available options in the dropdown.
-//        //every option is a webelement
-//        List<WebElement> options = select.getOptions();
-//        //this is a collection that will store text of every option
-//        List<String> optionsTextList = new ArrayList<>();
-//        for(WebElement option: options){
-//            //go through every option and retrieve text
-//            //add that text into collection of text options
-//            optionsTextList.add(option.getText());
-//        }
-//        return  optionsTextList;
-//    }
+
 
 
 

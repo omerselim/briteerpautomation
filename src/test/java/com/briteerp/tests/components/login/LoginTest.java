@@ -12,6 +12,7 @@ public class LoginTest extends TestBase {
 
     @Test
     public void validCredential() {
+
         //this is required, otherwise you will get null pointer exception
         for (int i=1; i<=login.userNames.size(); i++) {
             extentLogger = report.createTest("Login as a Event Scrum Manager #" + i);
