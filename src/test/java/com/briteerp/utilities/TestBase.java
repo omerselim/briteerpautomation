@@ -30,7 +30,7 @@ public class TestBase {
     public void testSetup(){
         //we are creating actual reporter
         report = new ExtentReports();
-        String date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_hhmmss"));
+        String date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyMMdd_hhmmss"));
 
         // this is path to the report itself
 
