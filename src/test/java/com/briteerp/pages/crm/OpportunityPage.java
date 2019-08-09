@@ -1,4 +1,4 @@
-package com.briteerp.pages.CRM;
+package com.briteerp.pages.crm;
 
 import com.briteerp.utilities.BriteErpUtilsOST;
 import com.briteerp.utilities.ConfigurationReader;
@@ -96,6 +96,8 @@ public class OpportunityPage {
 
     @FindBy(css="button[name='close_dialog']")
     public WebElement CreateFinalElement ;
+
+    public String qqqq;
 
 
     public OpportunityPage(){

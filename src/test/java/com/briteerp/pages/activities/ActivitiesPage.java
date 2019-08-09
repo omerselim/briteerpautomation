@@ -1,4 +1,4 @@
-package com.briteerp.notes;
+package com.briteerp.pages.activities;
 
 import com.briteerp.utilities.Driver;
 import org.openqa.selenium.WebElement;

@@ -1,4 +1,4 @@
-package com.briteerp.pages.CRM;
+package com.briteerp.pages.crm;
 
 import com.briteerp.utilities.BriteErpUtilsOST;
 import com.briteerp.utilities.ConfigurationReader;

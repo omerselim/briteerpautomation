@@ -17,26 +17,23 @@
 
  */
 package com.briteerp.tests.components.crm;
-import com.briteerp.pages.CRM.OpportunityPage;
 import com.briteerp.utilities.BriteErpUtilsOST;
+import com.briteerp.utilities.Pages;
 import com.briteerp.utilities.SeleniumUtils;
 import com.briteerp.utilities.TestBase;
 import org.testng.annotations.Test;
 
 public class CreateOpportunityTest extends TestBase {
-    OpportunityPage opportunity = new OpportunityPage();
+    Pages pages = new Pages();
 
     @Test
     public void createNewOpportunity() {
-        int NumOfNewOpportunities =5;
+        int NumOfNewOpportunities =2;
         extentLogger=report.createTest("Creating "+NumOfNewOpportunities+" new opportunities ");
-        BriteErpUtilsOST.login();                              SeleniumUtils.waitPlease(2);
-        BriteErpUtilsOST.navigateToModule("CRM");          SeleniumUtils.waitPlease(2);
-        OpportunityPage.createOpportunity(NumOfNewOpportunities,7,3);           SeleniumUtils.waitPlease(2);
-        BriteErpUtilsOST.logout();                              SeleniumUtils.waitPlease(2);
+        pages.loginPage().login();                              SeleniumUtils.waitPlease(2);
+        BriteErpUtilsOST.navigateToModule("CRM");           SeleniumUtils.waitPlease(1);
+        pages.opportunityPage().createOpportunity(NumOfNewOpportunities,7,3);           //SeleniumUtils.waitPlease(1);
+        pages.loginPage().logout();
         extentLogger.pass(NumOfNewOpportunities+" opportunit(y/ies) has/have been created.");
-
     }
-
-
 }

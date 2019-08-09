@@ -30,12 +30,11 @@ public class TestBase {
     public void testSetup(){
         //we are creating actual reporter
         report = new ExtentReports();
-        String date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyMMdd_hhmmss"));
-
-        // this is path to the report itself
-
+        String date1 = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyMMdd_HHmm"));
+        String date2 = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yy-MM-dd"));
+// this is path to the report itself
 //      String pathToReport = System.getProperty("user.dir")+"/test-output/report.html";
-        String pathToReport = System.getProperty("user.dir")+"/test-output/reports/report_"+ date + ".html";;
+        String pathToReport = System.getProperty("user.dir")+"/test-output/reports/"+date2+"/report_"+ date1 + ".html";;
         htmlReporter = new ExtentHtmlReporter(pathToReport);
 
         report.attachReporter(htmlReporter);

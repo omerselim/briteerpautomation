@@ -560,12 +560,13 @@ public class SeleniumUtils {
      */
     public static String getScreenshot2(String name)  {
         // name the screenshot with the current date time to avoid duplicate name
-        String dateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyMMdd_hhmmss"));
+        String dateTime1 = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyMMdd_HHmm"));
+        String date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yy-MM-dd"));
         // TakesScreenshot ---> interface from selenium which takes screenshots
         TakesScreenshot ts = (TakesScreenshot) Driver.getDriver();
         File source = ts.getScreenshotAs(OutputType.FILE);
         // full path to the screenshot location
-        String target = System.getProperty("user.dir") + "/test-output/Screenshots/" + name+"_"+ dateTime + ".png";
+        String target = System.getProperty("user.dir") + "/test-output/Screenshots/"+date+"/"+name+"_"+ dateTime1 + ".png";
         File finalDestination = new File(target);
         // save the screenshot to the path given
         try {
